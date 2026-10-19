@@ -1,0 +1,68 @@
+/* ==========================================================================
+   theme.css — Variables propias de Global Frío
+   Se aplican sobre los tokens del design system (industry.css).
+   Cambiar el ambiente: <html data-theme="claro"> o data-theme="oscuro".
+   ========================================================================== */
+
+:root {
+  /* Marca */
+  --gf-accent: #5980a6;          /* acento acero: fotos, rótulos, detalles */
+  --gf-accent-soft: #a9bed2;
+  --gf-accent-deep: #2c4560;
+  --gf-btn: #1f5fa9;             /* azul de botones primarios */
+  --gf-btn-hover: #184d8a;
+  --gf-btn-text: #ffffff;
+
+  /* Medidas */
+  --gf-max: 1240px;
+  --gf-gutter: 32px;
+  --gf-gutter-sm: 20px;
+  --gf-section-y: 104px;
+  --gf-section-y-sm: 64px;
+}
+
+/* --- Ambiente oscuro (por defecto) ---------------------------------------- */
+:root,
+[data-theme="oscuro"] {
+  --gf-bg: #15181a;
+  --gf-surface: #1c2023;
+  --gf-text: #e8eaeb;
+  --gf-text-soft: rgba(232, 234, 235, 0.72);
+  --gf-text-mute: rgba(232, 234, 235, 0.55);
+  --gf-line: rgba(232, 234, 235, 0.2);
+  --gf-accent-text: #9fb9d1;     /* acento legible sobre fondo oscuro */
+  --gf-band: #f2f2f3;            /* banda invertida (mantenimiento) */
+  --gf-band-text: #1d1f20;
+  --gf-band-soft: rgba(29, 31, 32, 0.7);
+  --gf-band-line: rgba(29, 31, 32, 0.22);
+  --gf-logo-blend: normal;
+}
+
+/* --- Ambiente claro ------------------------------------------------------- */
+[data-theme="claro"] {
+  --gf-bg: #f2f2f3;
+  --gf-surface: #f5f5f8;
+  --gf-text: #1d1f20;
+  --gf-text-soft: rgba(29, 31, 32, 0.74);
+  --gf-text-mute: rgba(29, 31, 32, 0.55);
+  --gf-line: rgba(29, 31, 32, 0.16);
+  --gf-accent-text: #3d5c7b;
+  --gf-band: #2c4560;
+  --gf-band-text: #f5f5f8;
+  --gf-band-soft: rgba(245, 245, 248, 0.78);
+  --gf-band-line: rgba(245, 245, 248, 0.22);
+  --gf-logo-blend: multiply;
+}
+
+/* Puentes hacia los tokens del design system, para que sus componentes
+   (.btn, .card, .blueprint, .duotone) hereden el ambiente activo. */
+:root {
+  --color-bg: var(--gf-bg);
+  --color-text: var(--gf-text);
+  --color-accent: var(--gf-accent);
+  --color-accent-400: var(--gf-accent-soft);
+  --color-accent-700: var(--gf-accent-text);
+  --color-accent-900: var(--gf-accent-deep);
+  --color-divider: var(--gf-line);
+  --color-neutral-100: var(--gf-surface);
+}

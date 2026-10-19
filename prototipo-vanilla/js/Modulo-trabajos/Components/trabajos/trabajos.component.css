@@ -1,0 +1,35 @@
+/* --- Trabajos ------------------------------------------------------------- */
+.gf-grid-trabajos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.gf-trabajo { margin: 0; }
+.gf-trabajo img { width: 100%; height: 340px; object-fit: cover; }
+.gf-trabajo figcaption {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 16px;
+  color: var(--gf-text-mute);
+}
+
+.gf-cta-card {
+  padding: 36px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 340px;
+}
+.gf-cta-card h3 { font-size: 28px; max-width: 12em; }
+.gf-cta-card p { font-size: 15px; line-height: 1.6; color: var(--gf-text-soft); margin: 24px 0; }
+.gf-cta-card .btn { align-self: flex-start; }
+
+@media (max-width: 1000px) {
+  .gf-grid-trabajos { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .gf-grid-trabajos { grid-template-columns: 1fr; }
+}

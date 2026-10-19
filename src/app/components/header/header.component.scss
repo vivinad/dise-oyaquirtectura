@@ -1,0 +1,128 @@
+.gf-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: color-mix(in srgb, var(--gf-bg) 88%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--gf-line);
+  transition: background-color 200ms ease;
+}
+
+.gf-header__inner {
+  max-width: var(--gf-max);
+  margin: 0 auto;
+  padding: 14px var(--gf-gutter);
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.gf-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 0 0 auto;
+  text-decoration: none;
+
+  img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    mix-blend-mode: var(--gf-logo-blend);
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+
+  &__name {
+    font-family: var(--font-heading, "Barlow Condensed", sans-serif);
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 0.02em;
+    color: var(--gf-text);
+  }
+
+  &__tag {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gf-text-mute);
+    margin-top: 3px;
+  }
+}
+
+.gf-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-left: auto;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+
+  a {
+    color: var(--gf-text-soft);
+    text-decoration: none;
+    transition: color 150ms ease;
+
+    &:hover {
+      color: var(--gf-text);
+    }
+  }
+}
+
+.gf-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+}
+
+.btn-ambiente {
+  font-size: 13px;
+  padding: 8px 12px;
+  min-height: 38px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid var(--gf-line);
+  color: var(--gf-text);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.gf-header__cta {
+  flex: 0 0 auto;
+  font-size: 14px;
+}
+
+@media (max-width: 1000px) {
+  .gf-nav {
+    display: none;
+  }
+
+  .gf-header__inner {
+    padding: 12px var(--gf-gutter-sm);
+    gap: 16px;
+  }
+
+  .gf-header__actions {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .gf-header__cta {
+    font-size: 13px;
+    padding: 10px 14px;
+  }
+
+  .btn-ambiente {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}

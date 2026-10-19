@@ -1,0 +1,37 @@
+<footer class="gf-footer">
+  <div class="gf-footer__inner">
+    <div class="gf-footer__brand">
+      <img src="assets/logo.png" alt="Global Frío" width="40" height="40">
+      <span class="gf-footer__lines">
+        <span class="gf-footer__name">
+          {{ configService.empresa.nombre }} — {{ configService.empresa.lema }}
+        </span>
+        <a
+          class="gf-footer__dir"
+          [href]="configService.enlaces.mapa"
+          target="_blank"
+          rel="noopener noreferrer">
+          <span>{{ configService.ubicacion.direccion }}</span>
+        </a>
+      </span>
+    </div>
+
+    <nav class="gf-redes" aria-label="Redes sociales">
+      <a
+        *ngFor="let red of configService.redes"
+        [href]="red.url"
+        target="_blank"
+        rel="noopener noreferrer">
+        {{ red.nombre }}
+      </a>
+      <a
+        [href]="configService.enlaces.whatsapp"
+        target="_blank"
+        rel="noopener noreferrer">
+        WhatsApp
+      </a>
+    </nav>
+
+    <p class="gf-copy">© 2026 Global Frío. Servicio a todo el Perú.</p>
+  </div>
+</footer>

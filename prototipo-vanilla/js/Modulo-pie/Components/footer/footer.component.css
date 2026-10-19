@@ -1,0 +1,40 @@
+/* --- Pie ------------------------------------------------------------------ */
+.gf-footer { border-top: 1px solid var(--gf-line); background: var(--gf-surface); }
+.gf-footer__inner {
+  max-width: var(--gf-max);
+  margin: 0 auto;
+  padding: 56px var(--gf-gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.gf-footer__brand { display: flex; align-items: center; gap: 14px; }
+.gf-footer__brand img { width: 40px; height: 40px; object-fit: contain; mix-blend-mode: var(--gf-logo-blend); }
+.gf-footer__lines { display: flex; flex-direction: column; gap: 5px; }
+.gf-footer__name {
+  font-family: var(--font-heading, "Barlow Condensed", sans-serif);
+  font-size: 18px;
+  letter-spacing: 0.02em;
+}
+.gf-footer__dir { font-size: 13px; color: var(--gf-text-mute); }
+
+.gf-redes {
+  display: flex;
+  gap: 26px;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.gf-copy { font-size: 13px; color: var(--gf-text-mute); }
+
+@media (max-width: 1000px) {
+  .gf-footer__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 40px var(--gf-gutter-sm);
+  }
+}

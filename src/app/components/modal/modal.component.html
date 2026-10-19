@@ -1,0 +1,61 @@
+<div
+  class="gf-modal"
+  *ngIf="modalService.visible$ | async"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="gf-modal-tel"
+  (click)="onBackdropClick($event)">
+
+  <div class="blueprint gf-modal__panel">
+    <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+
+    <p class="gf-kicker">Contacto directo</p>
+    <p class="gf-modal__tel" id="gf-modal-tel">{{ configService.contacto.telefonoVisible }}</p>
+    <p class="gf-modal__persona">
+      <span>{{ configService.contacto.responsable }}</span> — Global Frío
+    </p>
+    <p class="gf-modal__claim">{{ configService.empresa.claim }}</p>
+    <p class="gf-modal__horario">{{ configService.contacto.horario }}</p>
+
+    <div class="gf-modal__mapa">
+      <p class="gf-kicker">Ubicación</p>
+      <div class="blueprint" style="overflow: hidden;">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <iframe
+          [src]="mapaEmbedUrl"
+          title="Ubicación de Global Frío en Ventanilla"
+          loading="lazy">
+        </iframe>
+      </div>
+      <a
+        class="gf-modal__dir"
+        [href]="configService.enlaces.mapa"
+        target="_blank"
+        rel="noopener noreferrer">
+        <span>{{ configService.ubicacion.direccion }}</span> →
+      </a>
+    </div>
+
+    <div class="gf-actions">
+      <a
+        class="btn btn-primary btn-marca blueprint"
+        [href]="configService.enlaces.telefono">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        Llamar
+      </a>
+      <a
+        class="btn btn-secondary"
+        [href]="configService.enlaces.whatsapp"
+        target="_blank"
+        rel="noopener noreferrer">
+        WhatsApp
+      </a>
+      <button
+        class="btn btn-ghost gf-cerrar"
+        type="button"
+        (click)="cerrar()">
+        Cerrar
+      </button>
+    </div>
+  </div>
+</div>

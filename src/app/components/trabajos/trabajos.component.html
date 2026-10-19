@@ -1,0 +1,39 @@
+<section class="gf-section gf-section--surface" id="trabajos">
+  <div class="gf-wrap">
+    <div class="gf-section-head">
+      <div>
+        <p class="gf-kicker">02 — Trabajos</p>
+        <h2 class="gf-title">Instalaciones recientes</h2>
+      </div>
+      <p class="gf-lede">
+        Departamentos, oficinas, consultorios y locales. Cada trabajo se entrega probado y funcionando.
+      </p>
+    </div>
+
+    <div class="gf-grid-trabajos" *ngIf="trabajos$ | async as trabajos">
+      <!-- Fichas fotográficas -->
+      <figure class="gf-trabajo" *ngFor="let trabajo of trabajos">
+        <div class="blueprint duotone">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <img [src]="trabajo.imagen" [alt]="trabajo.alt" loading="lazy" width="400" height="340">
+        </div>
+        <figcaption>{{ trabajo.pie }}</figcaption>
+      </figure>
+
+      <!-- Última celda de la galería: llamada a la acción en obra -->
+      <div class="blueprint gf-cta-card">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <h3>¿Tienes un proyecto en obra o varios ambientes?</h3>
+        <p>Visitamos el lugar, calculamos la carga térmica y te entregamos una propuesta por ambiente.</p>
+        <a
+          class="btn btn-primary btn-marca blueprint"
+          [href]="configService.enlaces.whatsapp"
+          target="_blank"
+          rel="noopener noreferrer">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          Agendar visita
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

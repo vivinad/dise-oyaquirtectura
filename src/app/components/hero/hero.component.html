@@ -1,0 +1,53 @@
+<section class="gf-hero" id="inicio">
+  <div class="gf-hero__copy">
+    <div class="gf-badge">
+      <span></span>
+      <span>Servicio a todo el Perú</span>
+    </div>
+
+    <h1 class="gf-hero__title">Climatizamos tu mundo</h1>
+    <p class="gf-hero__claim">{{ configService.empresa.claim }}</p>
+    <p class="gf-hero__text">
+      Instalación, mantenimiento y reparación de aire acondicionado para hogares,
+      comercios, obras e industria. Técnicos especializados y garantía en cada servicio.
+    </p>
+
+    <div class="gf-actions">
+      <a
+        class="btn btn-primary btn-marca blueprint"
+        [href]="configService.enlaces.whatsapp"
+        target="_blank"
+        rel="noopener noreferrer">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        Cotizar por WhatsApp
+      </a>
+      <button
+        class="btn btn-secondary btn-linea"
+        type="button"
+        (click)="abrirModalContacto()">
+        Llamar ahora
+      </button>
+      <a class="btn btn-ghost" href="#servicios">Ver servicios</a>
+    </div>
+
+    <dl class="gf-stats">
+      <div>
+        <dt>24/7</dt>
+        <dd>Atención de emergencias</dd>
+      </div>
+      <div>
+        <dt>6 meses</dt>
+        <dd>Mantenimiento recomendado</dd>
+      </div>
+      <div>
+        <dt>100%</dt>
+        <dd>Equipos originales</dd>
+      </div>
+    </dl>
+  </div>
+
+  <figure class="blueprint duotone gf-hero__figure">
+    <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+    <img src="assets/hero.jpg" alt="Técnico de Global Frío poniendo en marcha un equipo instalado" width="600" height="613">
+  </figure>
+</section>

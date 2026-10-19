@@ -1,0 +1,25 @@
+/* --- Servicios ------------------------------------------------------------ */
+.gf-grid-servicios {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+.gf-servicio { padding: 32px 26px 30px; background: transparent; }
+.gf-servicio__num {
+  font-family: var(--font-heading, "Barlow Condensed", sans-serif);
+  font-size: 15px;
+  letter-spacing: 0.2em;
+  color: var(--gf-accent-text);
+  margin-bottom: 44px;
+}
+.gf-servicio h3 { font-size: 25px; margin-bottom: 12px; }
+.gf-servicio p { font-size: 15px; line-height: 1.6; color: var(--gf-text-soft); margin: 0; }
+
+@media (max-width: 1000px) {
+  .gf-grid-servicios { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .gf-grid-servicios { grid-template-columns: 1fr; }
+}

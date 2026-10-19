@@ -1,0 +1,25 @@
+<section class="gf-section gf-section--surface" id="servicios">
+  <div class="gf-wrap">
+    <div class="gf-section-head">
+      <div>
+        <p class="gf-kicker">01 — Servicios</p>
+        <h2 class="gf-title">Todo el ciclo del equipo, en un solo técnico</h2>
+      </div>
+      <p class="gf-lede">
+        Desde la elección de la capacidad correcta hasta la limpieza semestral.
+        Trabajamos con equipos residenciales, comerciales y sistemas multi-split.
+      </p>
+    </div>
+
+    <div class="gf-grid-servicios" *ngIf="servicios$ | async as servicios">
+      <article
+        class="card blueprint gf-servicio"
+        *ngFor="let servicio of servicios; let i = index">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div class="gf-servicio__num">{{ formatearNumero(i) }}</div>
+        <h3>{{ servicio.titulo }}</h3>
+        <p>{{ servicio.texto }}</p>
+      </article>
+    </div>
+  </div>
+</section>

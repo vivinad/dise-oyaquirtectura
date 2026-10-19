@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="oscuro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Global Frío — Aire acondicionado | Instalación, mantenimiento y reparación</title>
+<meta name="description" content="Especialistas en sistemas de HVAC. Instalación, mantenimiento y reparación de aire acondicionado para hogares, comercios, obras e industria. Ventanilla, Callao. Servicio a todo el Perú.">
+<meta name="theme-color" content="#15181a">
+<link rel="icon" href="assets/logo.png">
+<link rel="canonical" href="https://globalfrio.com/">
+
+<!-- Open Graph: cómo se ve al compartir el enlace en WhatsApp o Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Global Frío — Climatizamos tu mundo">
+<meta property="og:description" content="Los mejores Especialistas en sistemas de HVAC. Instalación, mantenimiento y reparación de aire acondicionado.">
+<meta property="og:image" content="assets/hero.jpg">
+<meta property="og:locale" content="es_PE">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+
+<!-- Capas de estilo: design system → tema de marca → base compartida → CSS propio de cada componente -->
+<link rel="stylesheet" href="css/industry.css">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/main.css">
+
+<link rel="stylesheet" href="js/Modulo-cabecera/Components/header/header.component.css">
+<link rel="stylesheet" href="js/Modulo-hero/Components/hero/hero.component.css">
+<link rel="stylesheet" href="js/Modulo-servicios/Components/servicios/servicios.component.css">
+<link rel="stylesheet" href="js/Modulo-trabajos/Components/trabajos/trabajos.component.css">
+<link rel="stylesheet" href="js/Modulo-mantenimiento/Components/mantenimiento/mantenimiento.component.css">
+<link rel="stylesheet" href="js/Modulo-ubicacion/Components/ubicacion/ubicacion.component.css">
+<link rel="stylesheet" href="js/Modulo-pie/Components/footer/footer.component.css">
+<link rel="stylesheet" href="js/Modulo-contacto/Components/modal/modal.component.css">
+</head>
+<body>
+
+<!-- Cada [data-gf-incluir] se reemplaza en tiempo de carga por el .html del
+     componente indicado (ver js/nucleo/incluir.service.js). Requiere servir
+     el sitio por http/https: no funciona abriendo este archivo con doble
+     clic (file://). Para probarlo en tu máquina, un servidor local basta,
+     por ejemplo: npx serve, o python -m http.server. -->
+
+<div data-gf-incluir="Modulo-cabecera/Components/header/header.component"></div>
+
+<main>
+  <div data-gf-incluir="Modulo-hero/Components/hero/hero.component"></div>
+  <div data-gf-incluir="Modulo-servicios/Components/servicios/servicios.component"></div>
+  <div data-gf-incluir="Modulo-trabajos/Components/trabajos/trabajos.component"></div>
+  <div data-gf-incluir="Modulo-mantenimiento/Components/mantenimiento/mantenimiento.component"></div>
+  <div data-gf-incluir="Modulo-ubicacion/Components/ubicacion/ubicacion.component"></div>
+</main>
+
+<div data-gf-incluir="Modulo-pie/Components/footer/footer.component"></div>
+
+<div data-gf-incluir="Modulo-contacto/Components/modal/modal.component"></div>
+
+<!-- Orden de carga: namespace → nucleo → Models de cada módulo → Services de
+     cada módulo → Components de cada módulo → app. Dentro de cada capa el
+     orden entre módulos no importa; entre capas, sí (un Service puede usar
+     un Model, un Component puede usar un Service). -->
+<script src="js/namespace.js"></script>
+<script src="js/nucleo/incluir.service.js"></script>
+<script src="js/nucleo/enlazar.service.js"></script>
+
+<script src="js/Modulo-servicios/Models/servicio.model.js"></script>
+<script src="js/Modulo-trabajos/Models/trabajo.model.js"></script>
+<script src="js/Modulo-mantenimiento/Models/item-mantenimiento.model.js"></script>
+<script src="js/Modulo-contacto/Models/red-social.model.js"></script>
+
+<script src="js/Modulo-servicios/Services/servicios.service.js"></script>
+<script src="js/Modulo-trabajos/Services/trabajos.service.js"></script>
+<script src="js/Modulo-mantenimiento/Services/mantenimiento.service.js"></script>
+<script src="js/Modulo-contacto/Services/config.service.js"></script>
+<script src="js/Modulo-ambiente/Services/ambiente.service.js"></script>
+
+<script src="js/Modulo-cabecera/Components/header/header.component.js"></script>
+<script src="js/Modulo-hero/Components/hero/hero.component.js"></script>
+<script src="js/Modulo-servicios/Components/servicios/servicios.component.js"></script>
+<script src="js/Modulo-trabajos/Components/trabajos/trabajos.component.js"></script>
+<script src="js/Modulo-mantenimiento/Components/mantenimiento/mantenimiento.component.js"></script>
+<script src="js/Modulo-ubicacion/Components/ubicacion/ubicacion.component.js"></script>
+<script src="js/Modulo-pie/Components/footer/footer.component.js"></script>
+<script src="js/Modulo-contacto/Components/modal/modal.component.js"></script>
+<script src="js/Modulo-ambiente/Components/ambiente/ambiente.component.js"></script>
+
+<script src="js/app.js"></script>
+</body>
+</html>

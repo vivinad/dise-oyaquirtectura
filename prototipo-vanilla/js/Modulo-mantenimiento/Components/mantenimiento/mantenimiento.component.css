@@ -1,0 +1,26 @@
+/* --- Mantenimiento (banda invertida) -------------------------------------- */
+.gf-banda { background: var(--gf-band); color: var(--gf-band-text); }
+.gf-banda .gf-title,
+.gf-banda h4 { color: var(--gf-band-text); }
+.gf-banda .gf-kicker { color: var(--gf-band-soft); }
+.gf-banda__text { font-size: 17px; line-height: 1.65; color: var(--gf-band-soft); margin: 0 0 36px; max-width: 32em; }
+.gf-banda .btn {
+  background: var(--gf-band-text);
+  color: var(--gf-band);
+  border: 0;
+}
+
+.gf-checklist {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--gf-band-line);
+  border: 1px solid var(--gf-band-line);
+}
+.gf-checklist > div { background: var(--gf-band); padding: 30px 26px; }
+.gf-checklist h4 { font-size: 19px; margin-bottom: 10px; }
+.gf-checklist p { font-size: 14px; line-height: 1.6; margin: 0; color: var(--gf-band-soft); }
+
+@media (max-width: 640px) {
+  .gf-checklist { grid-template-columns: 1fr; }
+}
