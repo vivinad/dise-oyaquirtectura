@@ -1,0 +1,227 @@
+<section class="gf-section gf-cot" id="cotizar">
+  <div class="gf-wrap">
+    <div class="gf-section-head">
+      <div>
+        <p class="gf-kicker">Cotizador en línea</p>
+        <h2 class="gf-title">Cotiza tu servicio en minutos</h2>
+      </div>
+      <p class="gf-lede">
+        Responde unas preguntas y conoce al instante el precio estimado de tu equipo e instalación,
+        mantenimiento o reparación. Sin registrarte.
+      </p>
+    </div>
+
+    <!-- Indicador de pasos -->
+    <ol class="gf-cot__pasos">
+      <li *ngFor="let nombre of pasos; let i = index"
+          [class.activo]="paso === i + 1"
+          [class.hecho]="paso > i + 1"
+          (click)="irAPaso(i + 1)">
+        <span>{{ i + 1 }}</span> {{ nombre }}
+      </li>
+    </ol>
+
+    <p class="gf-cot__error" *ngIf="error">{{ error }}
+      <button *ngIf="!catalogo" type="button" class="btn btn-ghost" (click)="cargarCatalogo()">Reintentar</button>
+    </p>
+
+    <div class="gf-cot__panel blueprint" *ngIf="catalogo">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+
+      <!-- PASO 1: tipo de servicio -->
+      <div *ngIf="paso === 1">
+        <h3 class="gf-cot__pregunta">¿Qué necesitas?</h3>
+        <div class="gf-cot__opciones">
+          <button type="button" class="gf-cot__opcion"
+                  *ngFor="let op of catalogo.tiposServicio"
+                  [class.elegida]="tipoServicio?.codigo === op.codigo"
+                  (click)="elegirServicio(op)">
+            <strong>{{ op.nombre }}</strong>
+            <span>{{ op.descripcion }}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 2: tipo de lugar -->
+      <div *ngIf="paso === 2">
+        <h3 class="gf-cot__pregunta">¿Para qué tipo de lugar es?</h3>
+        <div class="gf-cot__opciones">
+          <button type="button" class="gf-cot__opcion"
+                  *ngFor="let op of catalogo.tiposCliente"
+                  [class.elegida]="tipoCliente?.codigo === op.codigo"
+                  (click)="elegirCliente(op)">
+            <strong>{{ op.nombre }}</strong>
+            <span>{{ op.descripcion }}</span>
+          </button>
+        </div>
+        <div class="gf-actions gf-cot__nav">
+          <button type="button" class="btn btn-ghost" (click)="paso = 1">← Volver</button>
+        </div>
+      </div>
+
+      <!-- PASO 3: detalles -->
+      <div *ngIf="paso === 3">
+        <h3 class="gf-cot__pregunta">
+          {{ tipoServicio?.nombre }} · {{ tipoCliente?.nombre }}
+        </h3>
+
+        <!-- Instalación: área → equipo recomendado -->
+        <ng-container *ngIf="esInstalacion">
+          <label class="gf-cot__label" for="area">¿Cuántos m² tiene el ambiente?</label>
+          <div class="gf-cot__fila">
+            <input id="area" class="gf-cot__input" type="number" min="1" max="1000" step="1"
+                   placeholder="Ej. 18" [(ngModel)]="areaM2" (keyup.enter)="recomendar()">
+            <button type="button" class="btn btn-primary btn-marca" (click)="recomendar()">Recomendar equipo</button>
+          </div>
+          <p class="gf-cot__nota" *ngIf="recomendacion">{{ recomendacion.mensaje }}</p>
+
+          <p class="gf-cot__label">Elige tu equipo</p>
+          <div class="gf-cot__equipos">
+            <button type="button" class="gf-cot__equipo"
+                    *ngFor="let eq of catalogo.equipos"
+                    [class.elegida]="equipoId === eq.id"
+                    (click)="seleccionarEquipo(eq)">
+              <span class="gf-cot__badge" *ngIf="recomendacion?.equipo?.id === eq.id">Recomendado</span>
+              <strong>{{ eq.capacidadBtu | number:'1.0-0' }} BTU/h</strong>
+              <span>Hasta {{ eq.areaMaxM2 }} m²</span>
+              <span class="gf-cot__precio">S/ {{ eq.precio | number:'1.2-2' }}</span>
+            </button>
+          </div>
+
+          <div class="gf-cot__fila" *ngIf="equipoId">
+            <label class="gf-cot__label" for="cantidad">Cantidad de equipos</label>
+            <select id="cantidad" class="gf-cot__input gf-cot__input--corto" [(ngModel)]="cantidadEquipos">
+              <option *ngFor="let n of [1, 2, 3, 4, 5]" [ngValue]="n">{{ n }}</option>
+            </select>
+          </div>
+        </ng-container>
+
+        <!-- Mantenimiento / reparación: capacidad del equipo que ya tiene -->
+        <ng-container *ngIf="!esInstalacion">
+          <p class="gf-cot__label">¿De qué capacidad es tu equipo?</p>
+          <div class="gf-cot__chips">
+            <button type="button" class="gf-cot__chip" *ngFor="let btu of capacidades"
+                    [class.elegida]="capacidadBtu === btu" (click)="cambiarCapacidad(btu)">
+              {{ btu | number:'1.0-0' }} BTU
+            </button>
+            <button type="button" class="gf-cot__chip"
+                    [class.elegida]="capacidadBtu === null" (click)="cambiarCapacidad(null)">
+              No sé / ver todos
+            </button>
+          </div>
+        </ng-container>
+
+        <!-- Servicios -->
+        <ng-container *ngIf="servicios.length > 0">
+          <p class="gf-cot__label">{{ esInstalacion ? 'Servicio de instalación' : 'Elige los servicios' }}</p>
+          <div class="gf-cot__servicios">
+            <label class="gf-cot__servicio" *ngFor="let s of servicios" [class.elegida]="seleccionados.has(s.id)">
+              <input type="checkbox" [checked]="seleccionados.has(s.id)" (change)="alternarServicio(s.id)">
+              <span class="gf-cot__servicio-texto">
+                <strong>{{ s.nombre }}</strong>
+                <small>{{ s.descripcion }}</small>
+              </span>
+              <span class="gf-cot__precio">S/ {{ precioServicio(s) | number:'1.2-2' }}</span>
+            </label>
+          </div>
+        </ng-container>
+
+        <!-- Zona -->
+        <label class="gf-cot__label" for="zona">¿En qué zona estás?</label>
+        <select id="zona" class="gf-cot__input" [(ngModel)]="zonaId">
+          <option [ngValue]="null" disabled>Elige tu zona</option>
+          <option *ngFor="let z of catalogo.zonas" [ngValue]="z.id">
+            {{ z.nombre }} — traslado S/ {{ z.costoTraslado | number:'1.2-2' }}
+          </option>
+        </select>
+
+        <div class="gf-actions gf-cot__nav">
+          <button type="button" class="btn btn-ghost" (click)="paso = 2">← Volver</button>
+          <button type="button" class="btn btn-primary btn-marca blueprint"
+                  [disabled]="!puedeVerPrecio || cargando" (click)="verPrecio()">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            {{ cargando ? 'Calculando…' : 'Ver precio' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 4: precio estimado -->
+      <div *ngIf="paso === 4 && resultado">
+        <h3 class="gf-cot__pregunta">Tu precio estimado</h3>
+        <p class="gf-cot__nota">
+          {{ resultado.tipoServicio }} · {{ resultado.tipoCliente }} · {{ resultado.zona }}
+          <ng-container *ngIf="guardada"> · Código <strong>{{ guardada.codigo }}</strong></ng-container>
+        </p>
+
+        <table class="gf-cot__tabla">
+          <thead>
+            <tr><th>Detalle</th><th>Cant.</th><th>P. unit.</th><th>Subtotal</th></tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let l of resultado.lineas">
+              <td>{{ l.nombre }}</td>
+              <td>{{ l.cantidad }}</td>
+              <td>S/ {{ l.precioUnitario | number:'1.2-2' }}</td>
+              <td>S/ {{ l.subtotal | number:'1.2-2' }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <dl class="gf-cot__totales">
+          <div><dt>Equipos</dt><dd>S/ {{ resultado.subtotalEquipos | number:'1.2-2' }}</dd></div>
+          <div><dt>Mano de obra</dt><dd>S/ {{ resultado.subtotalManoObra | number:'1.2-2' }}</dd></div>
+          <div><dt>Traslado</dt><dd>S/ {{ resultado.costoTraslado | number:'1.2-2' }}</dd></div>
+          <div class="gf-cot__total"><dt>Total estimado</dt><dd>S/ {{ resultado.total | number:'1.2-2' }}</dd></div>
+        </dl>
+        <p class="gf-cot__nota">Precios en soles con IGV incluido. Es un precio estimado: el técnico lo confirma en la visita.</p>
+
+        <div class="gf-actions gf-cot__nav">
+          <button type="button" class="btn btn-ghost" (click)="paso = 3">← Modificar</button>
+          <button type="button" class="btn btn-secondary" [disabled]="cargando" (click)="descargarPdf()">Descargar PDF</button>
+          <button type="button" class="btn btn-primary btn-marca blueprint" [disabled]="cargando" (click)="continuarWhatsapp()">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            Continuar por WhatsApp
+          </button>
+          <button type="button" class="btn btn-ghost" (click)="nuevaCotizacion()">Nueva cotización</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Documento para imprimir / guardar como PDF (RF05). Solo se ve al imprimir. -->
+  <div class="gf-cot-print" *ngIf="guardada">
+    <div class="gf-cot-print__cabecera">
+      <img src="assets/logo.png" alt="Global Frío" width="70" height="70">
+      <div>
+        <h1>Global Frío</h1>
+        <p>{{ configService.empresa.claim }}</p>
+        <p>WhatsApp {{ configService.contacto.telefonoVisible }} · {{ configService.ubicacion.direccion }}</p>
+      </div>
+    </div>
+    <h2>Cotización {{ guardada.codigo }}</h2>
+    <p>Fecha: {{ guardada.fecha | date:'dd/MM/yyyy HH:mm' }}</p>
+    <p>Servicio: {{ guardada.tipoServicio }} · Lugar: {{ guardada.tipoCliente }} · Zona: {{ guardada.zona }}
+      <ng-container *ngIf="guardada.areaM2"> · Ambiente: {{ guardada.areaM2 }} m²</ng-container>
+    </p>
+    <table>
+      <thead><tr><th>Detalle</th><th>Cant.</th><th>P. unit. (S/)</th><th>Subtotal (S/)</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let l of guardada.lineas">
+          <td>{{ l.nombre }}</td><td>{{ l.cantidad }}</td>
+          <td>{{ l.precioUnitario | number:'1.2-2' }}</td><td>{{ l.subtotal | number:'1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="gf-cot-print__totales">
+      <tr><td>Equipos</td><td>S/ {{ guardada.subtotalEquipos | number:'1.2-2' }}</td></tr>
+      <tr><td>Mano de obra</td><td>S/ {{ guardada.subtotalManoObra | number:'1.2-2' }}</td></tr>
+      <tr><td>Traslado</td><td>S/ {{ guardada.costoTraslado | number:'1.2-2' }}</td></tr>
+      <tr><th>Total estimado</th><th>S/ {{ guardada.total | number:'1.2-2' }}</th></tr>
+    </table>
+    <p class="gf-cot-print__nota">
+      Precios en soles con IGV incluido. Precio estimado sujeto a confirmación en la visita técnica.
+      Para concretar tu servicio escríbenos por WhatsApp al {{ configService.contacto.telefonoVisible }}
+      indicando el código {{ guardada.codigo }}.
+    </p>
+  </div>
+</section>
