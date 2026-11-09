@@ -7,7 +7,7 @@ import { Trabajo } from '../../models/trabajo.model';
 @Component({
   selector: 'app-trabajos',
   templateUrl: './trabajos.component.html',
-  styleUrls: ['./trabajos.component.scss']
+  styleUrls: ['./trabajos.component.css']
 })
 export class TrabajosComponent implements OnInit {
   trabajos$!: Observable<Trabajo[]>;

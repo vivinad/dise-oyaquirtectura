@@ -1,0 +1,101 @@
+:host {
+  display: block;
+  padding: 0 var(--gf-gutter);
+}
+
+/* Banda destacada: tarjeta grande con degradado de marca */
+.gf-banda {
+  position: relative;
+  max-width: var(--gf-max);
+  margin: 24px auto;
+  border-radius: 32px;
+  background: var(--gf-band);
+  color: var(--gf-band-text);
+  overflow: hidden;
+  box-shadow: var(--gf-shadow-lg);
+}
+.gf-banda::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  right: -80px;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.35), transparent 70%);
+  pointer-events: none;
+}
+.gf-banda .gf-wrap {
+  position: relative;
+  padding: 72px 56px;
+}
+.gf-banda .gf-title,
+.gf-banda h4 {
+  color: var(--gf-band-text);
+}
+.gf-banda .gf-kicker {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+}
+.gf-banda__text {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--gf-band-soft);
+  margin: 18px 0 32px;
+  max-width: 32em;
+}
+.gf-banda .btn {
+  background: #ffffff;
+  color: #0f2a5c;
+  border: 0;
+}
+.gf-banda .btn:hover {
+  background: #eaf4ff;
+  color: #0f2a5c;
+}
+
+.gf-checklist {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.gf-checklist > div {
+  background: var(--gf-band-card);
+  border: 1px solid var(--gf-band-line);
+  border-radius: var(--gf-radius);
+  padding: 22px 20px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: transform 200ms ease, background-color 200ms ease;
+}
+.gf-checklist > div:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.14);
+}
+.gf-checklist h4 {
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+.gf-checklist p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  color: var(--gf-band-soft);
+}
+
+@media (max-width: 1000px) {
+  :host {
+    padding: 0 var(--gf-gutter-sm);
+  }
+  .gf-banda {
+    border-radius: 24px;
+  }
+  .gf-banda .gf-wrap {
+    padding: 48px 24px;
+  }
+}
+@media (max-width: 640px) {
+  .gf-checklist {
+    grid-template-columns: 1fr;
+  }
+}

@@ -5,7 +5,7 @@
       <span>Servicio a todo el Perú</span>
     </div>
 
-    <h1 class="gf-hero__title">Climatizamos tu mundo</h1>
+    <h1 class="gf-hero__title">Climatizamos <span class="gf-grad-text">tu mundo</span></h1>
     <p class="gf-hero__claim">{{ configService.empresa.claim }}</p>
     <p class="gf-hero__text">
       Instalación, mantenimiento y reparación de aire acondicionado para hogares,
@@ -13,10 +13,10 @@
     </p>
 
     <div class="gf-actions">
-      <a class="btn btn-primary btn-marca blueprint" href="#cotizar">
+      <button class="btn btn-primary btn-marca blueprint" type="button" (click)="abrirCotizador()">
         <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
         Cotizar en línea
-      </a>
+      </button>
       <a
         class="btn btn-secondary btn-linea"
         [href]="configService.enlaces.whatsapp"
@@ -52,5 +52,12 @@
   <figure class="blueprint duotone gf-hero__figure">
     <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
     <img src="assets/hero.jpg" alt="Técnico de Global Frío poniendo en marcha un equipo instalado" width="600" height="613">
+    <div class="gf-hero__chip">
+      <span class="material-icons" aria-hidden="true">bolt</span>
+      <span>
+        <strong>Cotiza en línea</strong>
+        <small>Precio al instante, sin registrarte</small>
+      </span>
+    </div>
   </figure>
 </section>

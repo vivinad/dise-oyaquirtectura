@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <!-- Smart App Control (Windows) bloquea un .dll idéntico al recompilar; así cada compilación genera uno nuevo. -->
+    <Deterministic>false</Deterministic>
+  </PropertyGroup>
+
+</Project>

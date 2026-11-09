@@ -1,0 +1,121 @@
+/* Galería tipo "bento": la primera foto es grande y ocupa 2 × 2 celdas */
+.gf-grid-trabajos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 270px;
+  gap: 20px;
+}
+
+.gf-trabajo {
+  position: relative;
+  margin: 0;
+}
+.gf-trabajo:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+.gf-trabajo .duotone {
+  height: 100%;
+  border: 0;
+  box-shadow: var(--gf-shadow);
+}
+.gf-trabajo .duotone::after {
+  background: linear-gradient(180deg, transparent 45%, rgba(5, 10, 22, 0.75) 100%);
+}
+.gf-trabajo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms ease;
+}
+.gf-trabajo:hover img {
+  transform: scale(1.06);
+}
+.gf-trabajo figcaption {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  z-index: 1;
+  display: inline-flex;
+  width: fit-content;
+  max-width: calc(100% - 28px);
+  padding: 8px 14px;
+  border-radius: var(--gf-pill);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(10, 16, 32, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-size: 13px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.gf-cta-card {
+  padding: 30px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 0;
+  border-radius: var(--gf-radius-lg);
+  background: var(--gf-band);
+  box-shadow: var(--gf-shadow-lg);
+  overflow: hidden;
+}
+.gf-cta-card::after {
+  content: "";
+  position: absolute;
+  right: -60px;
+  bottom: -60px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.45), transparent 70%);
+  pointer-events: none;
+}
+.gf-cta-card h3 {
+  font-size: 22px;
+  line-height: 1.25;
+  max-width: 12em;
+  color: #ffffff;
+}
+.gf-cta-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.82);
+  margin: 12px 0 18px;
+}
+.gf-cta-card .btn {
+  align-self: flex-start;
+  background: #ffffff;
+  color: #0f2a5c;
+  box-shadow: none;
+}
+.gf-cta-card .btn:hover {
+  background: #eaf4ff;
+  color: #0f2a5c;
+}
+
+@media (max-width: 1000px) {
+  .gf-grid-trabajos {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 240px;
+  }
+  .gf-cta-card {
+    grid-column: span 2;
+  }
+}
+@media (max-width: 640px) {
+  .gf-grid-trabajos {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 260px;
+  }
+  .gf-trabajo:first-child,
+  .gf-cta-card {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .gf-cta-card {
+    min-height: 260px;
+  }
+}

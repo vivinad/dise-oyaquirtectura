@@ -6,7 +6,7 @@ import { ModalService } from '../../services/modal.service';
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss']
+  styleUrls: ['./modal.component.css']
 })
 export class ModalComponent {
   mapaEmbedUrl: SafeResourceUrl;

@@ -16,7 +16,10 @@
         class="card blueprint gf-servicio"
         *ngFor="let servicio of servicios; let i = index">
         <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
-        <div class="gf-servicio__num">{{ formatearNumero(i) }}</div>
+        <div class="gf-servicio__top">
+          <span class="gf-servicio__icono material-icons" aria-hidden="true">{{ servicio.icono || icono(i) }}</span>
+          <span class="gf-servicio__num">{{ formatearNumero(i) }}</span>
+        </div>
         <h3>{{ servicio.titulo }}</h3>
         <p>{{ servicio.texto }}</p>
       </article>

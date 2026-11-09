@@ -24,12 +24,4 @@ export class ModalService {
       document.body.style.overflow = '';
     }
   }
-
-  alternar(): void {
-    if (this.visibleSubject.value) {
-      this.cerrar();
-    } else {
-      this.abrir();
-    }
-  }
 }

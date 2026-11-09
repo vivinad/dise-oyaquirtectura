@@ -1,14 +1,20 @@
-<section class="gf-section gf-cot" id="cotizar">
-  <div class="gf-wrap">
-    <div class="gf-section-head">
+<div
+  class="gf-cot-modal"
+  *ngIf="cotizadorModal.visible$ | async"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="gf-cot-titulo"
+  (click)="onBackdropClick($event)">
+
+  <div class="gf-cot-modal__panel blueprint">
+    <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+
+    <div class="gf-cot-modal__cabecera">
       <div>
         <p class="gf-kicker">Cotizador en línea</p>
-        <h2 class="gf-title">Cotiza tu servicio en minutos</h2>
+        <h2 class="gf-cot-modal__titulo" id="gf-cot-titulo">Cotiza tu servicio en minutos</h2>
       </div>
-      <p class="gf-lede">
-        Responde unas preguntas y conoce al instante el precio estimado de tu equipo e instalación,
-        mantenimiento o reparación. Sin registrarte.
-      </p>
+      <button type="button" class="gf-cot-modal__cerrar" (click)="cerrar()" aria-label="Cerrar cotizador">✕</button>
     </div>
 
     <!-- Indicador de pasos -->
@@ -25,8 +31,9 @@
       <button *ngIf="!catalogo" type="button" class="btn btn-ghost" (click)="cargarCatalogo()">Reintentar</button>
     </p>
 
-    <div class="gf-cot__panel blueprint" *ngIf="catalogo">
-      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+    <p class="gf-cot__nota" *ngIf="cargando && !catalogo">Cargando cotizador…</p>
+
+    <div class="gf-cot__panel" *ngIf="catalogo">
 
       <!-- PASO 1: tipo de servicio -->
       <div *ngIf="paso === 1">
@@ -187,41 +194,41 @@
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Documento para imprimir / guardar como PDF (RF05). Solo se ve al imprimir. -->
-  <div class="gf-cot-print" *ngIf="guardada">
-    <div class="gf-cot-print__cabecera">
-      <img src="assets/logo.png" alt="Global Frío" width="70" height="70">
-      <div>
-        <h1>Global Frío</h1>
-        <p>{{ configService.empresa.claim }}</p>
-        <p>WhatsApp {{ configService.contacto.telefonoVisible }} · {{ configService.ubicacion.direccion }}</p>
-      </div>
+<!-- Documento para imprimir / guardar como PDF (RF05). Solo se ve al imprimir. -->
+<div class="gf-cot-print" *ngIf="guardada">
+  <div class="gf-cot-print__cabecera">
+    <img src="assets/logo.png" alt="Global Frío" width="70" height="70">
+    <div>
+      <h1>Global Frío</h1>
+      <p>{{ configService.empresa.claim }}</p>
+      <p>WhatsApp {{ configService.contacto.telefonoVisible }} · {{ configService.ubicacion.direccion }}</p>
     </div>
-    <h2>Cotización {{ guardada.codigo }}</h2>
-    <p>Fecha: {{ guardada.fecha | date:'dd/MM/yyyy HH:mm' }}</p>
-    <p>Servicio: {{ guardada.tipoServicio }} · Lugar: {{ guardada.tipoCliente }} · Zona: {{ guardada.zona }}
-      <ng-container *ngIf="guardada.areaM2"> · Ambiente: {{ guardada.areaM2 }} m²</ng-container>
-    </p>
-    <table>
-      <thead><tr><th>Detalle</th><th>Cant.</th><th>P. unit. (S/)</th><th>Subtotal (S/)</th></tr></thead>
-      <tbody>
-        <tr *ngFor="let l of guardada.lineas">
-          <td>{{ l.nombre }}</td><td>{{ l.cantidad }}</td>
-          <td>{{ l.precioUnitario | number:'1.2-2' }}</td><td>{{ l.subtotal | number:'1.2-2' }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <table class="gf-cot-print__totales">
-      <tr><td>Equipos</td><td>S/ {{ guardada.subtotalEquipos | number:'1.2-2' }}</td></tr>
-      <tr><td>Mano de obra</td><td>S/ {{ guardada.subtotalManoObra | number:'1.2-2' }}</td></tr>
-      <tr><td>Traslado</td><td>S/ {{ guardada.costoTraslado | number:'1.2-2' }}</td></tr>
-      <tr><th>Total estimado</th><th>S/ {{ guardada.total | number:'1.2-2' }}</th></tr>
-    </table>
-    <p class="gf-cot-print__nota">
-      Precios en soles con IGV incluido. Precio estimado sujeto a confirmación en la visita técnica.
-      Para concretar tu servicio escríbenos por WhatsApp al {{ configService.contacto.telefonoVisible }}
-      indicando el código {{ guardada.codigo }}.
-    </p>
   </div>
-</section>
+  <h2>Cotización {{ guardada.codigo }}</h2>
+  <p>Fecha: {{ guardada.fecha | date:'dd/MM/yyyy HH:mm' }}</p>
+  <p>Servicio: {{ guardada.tipoServicio }} · Lugar: {{ guardada.tipoCliente }} · Zona: {{ guardada.zona }}
+    <ng-container *ngIf="guardada.areaM2"> · Ambiente: {{ guardada.areaM2 }} m²</ng-container>
+  </p>
+  <table>
+    <thead><tr><th>Detalle</th><th>Cant.</th><th>P. unit. (S/)</th><th>Subtotal (S/)</th></tr></thead>
+    <tbody>
+      <tr *ngFor="let l of guardada.lineas">
+        <td>{{ l.nombre }}</td><td>{{ l.cantidad }}</td>
+        <td>{{ l.precioUnitario | number:'1.2-2' }}</td><td>{{ l.subtotal | number:'1.2-2' }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="gf-cot-print__totales">
+    <tr><td>Equipos</td><td>S/ {{ guardada.subtotalEquipos | number:'1.2-2' }}</td></tr>
+    <tr><td>Mano de obra</td><td>S/ {{ guardada.subtotalManoObra | number:'1.2-2' }}</td></tr>
+    <tr><td>Traslado</td><td>S/ {{ guardada.costoTraslado | number:'1.2-2' }}</td></tr>
+    <tr><th>Total estimado</th><th>S/ {{ guardada.total | number:'1.2-2' }}</th></tr>
+  </table>
+  <p class="gf-cot-print__nota">
+    Precios en soles con IGV incluido. Precio estimado sujeto a confirmación en la visita técnica.
+    Para concretar tu servicio escríbenos por WhatsApp al {{ configService.contacto.telefonoVisible }}
+    indicando el código {{ guardada.codigo }}.
+  </p>
+</div>

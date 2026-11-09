@@ -1,0 +1,37 @@
+.gf-datos {
+  margin: 0 0 32px;
+  display: grid;
+  gap: 12px;
+}
+.gf-datos > div {
+  padding: 16px 18px;
+  border: 1px solid var(--gf-line);
+  border-radius: var(--gf-radius);
+  background: var(--gf-card);
+}
+.gf-datos dt {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gf-text-mute);
+  margin-bottom: 6px;
+}
+.gf-datos dd {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--gf-text);
+}
+
+.gf-mapa {
+  overflow: hidden;
+  border-radius: var(--gf-radius-lg);
+  box-shadow: var(--gf-shadow-lg);
+}
+.gf-mapa iframe {
+  width: 100%;
+  height: 440px;
+  border: 0;
+  display: block;
+}

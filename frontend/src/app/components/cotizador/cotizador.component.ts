@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { CotizadorService } from '../../services/cotizador.service';
 import { ConfigService } from '../../services/config.service';
+import { CotizadorModalService } from '../../services/cotizador-modal.service';
 import {
   CatalogoCotizador,
   CotizacionRequest,
@@ -15,13 +17,14 @@ import {
  * Cotizador web en 4 pasos:
  * 1) tipo de servicio, 2) tipo de lugar, 3) equipo y/o servicios + zona, 4) precio estimado.
  * El cliente puede descargar su cotización (PDF) y continuar por WhatsApp. No requiere registro.
+ * Se muestra como un modal aparte, que se abre con CotizadorModalService.
  */
 @Component({
   selector: 'app-cotizador',
   templateUrl: './cotizador.component.html',
-  styleUrls: ['./cotizador.component.scss']
+  styleUrls: ['./cotizador.component.css']
 })
-export class CotizadorComponent implements OnInit {
+export class CotizadorComponent implements OnInit, OnDestroy {
   readonly pasos = ['Servicio', 'Lugar', 'Detalles', 'Precio'];
   readonly capacidades = [12000, 18000, 24000];
 
@@ -48,13 +51,44 @@ export class CotizadorComponent implements OnInit {
   resultado: CotizacionResponse | null = null;
   guardada: CotizacionResponse | null = null;
 
+  private suscripcion?: Subscription;
+
   constructor(
     private cotizadorService: CotizadorService,
-    public configService: ConfigService
+    public configService: ConfigService,
+    public cotizadorModal: CotizadorModalService
   ) {}
 
   ngOnInit(): void {
-    this.cargarCatalogo();
+    // El catálogo se pide la primera vez que se abre el modal.
+    this.suscripcion = this.cotizadorModal.visible$.subscribe(visible => {
+      if (visible && !this.catalogo && !this.cargando) {
+        this.cargarCatalogo();
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.suscripcion?.unsubscribe();
+  }
+
+  // ------------------------------------------------------------ modal
+
+  cerrar(): void {
+    this.cotizadorModal.cerrar();
+  }
+
+  onBackdropClick(event: MouseEvent): void {
+    if ((event.target as HTMLElement).classList.contains('gf-cot-modal')) {
+      this.cerrar();
+    }
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this.cotizadorModal.visible) {
+      this.cerrar();
+    }
   }
 
   cargarCatalogo(): void {

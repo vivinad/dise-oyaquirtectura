@@ -1,0 +1,132 @@
+.gf-header {
+  position: sticky;
+  top: 12px;
+  z-index: 40;
+  padding: 12px var(--gf-gutter) 0;
+}
+
+/* Barra flotante tipo cápsula con efecto vidrio */
+.gf-header__inner {
+  max-width: var(--gf-max);
+  margin: 0 auto;
+  padding: 8px 8px 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  border: 1px solid var(--gf-line-strong);
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--gf-bg) 70%, transparent);
+  backdrop-filter: saturate(180%) blur(18px);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+  box-shadow: var(--gf-shadow);
+  transition: background-color 200ms ease;
+}
+
+.gf-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 0 0 auto;
+  text-decoration: none;
+}
+.gf-brand img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  border-radius: 12px;
+  mix-blend-mode: var(--gf-logo-blend);
+}
+.gf-brand__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+.gf-brand__name {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  color: var(--gf-text);
+}
+.gf-brand__tag {
+  font-size: 12px;
+  color: var(--gf-text-mute);
+  margin-top: 2px;
+}
+
+.gf-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: auto;
+  font-size: 14px;
+  font-weight: 500;
+}
+.gf-nav a {
+  color: var(--gf-text-soft);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: var(--gf-pill);
+  transition: color 150ms ease, background-color 150ms ease;
+}
+.gf-nav a:hover {
+  color: var(--gf-text);
+  background: var(--gf-accent-soft);
+}
+
+.gf-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.btn-ambiente {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 14px;
+  min-height: 40px;
+  border-radius: var(--gf-pill);
+  cursor: pointer;
+  border: 1px solid var(--gf-line-strong);
+  color: var(--gf-text);
+  background: transparent;
+}
+.btn-ambiente:hover {
+  background: var(--gf-accent-soft);
+}
+
+.gf-header__cta {
+  flex: 0 0 auto;
+  font-size: 14px;
+  min-height: 40px;
+  padding: 10px 18px;
+}
+
+@media (max-width: 1100px) {
+  .gf-nav {
+    display: none;
+  }
+  .gf-header {
+    padding: 10px var(--gf-gutter-sm) 0;
+  }
+  .gf-header__inner {
+    gap: 16px;
+  }
+}
+@media (max-width: 640px) {
+  .gf-header__inner {
+    gap: 10px;
+  }
+  .gf-brand__text {
+    display: none;
+  }
+  .gf-header__cta {
+    font-size: 13px;
+    padding: 9px 14px;
+  }
+  .btn-ambiente {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}

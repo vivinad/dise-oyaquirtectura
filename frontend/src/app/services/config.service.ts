@@ -50,10 +50,6 @@ export class ConfigService {
     };
   }
 
-  getConfig(): ConfigGlobal {
-    return this.config;
-  }
-
   get empresa() {
     return this.config.empresa;
   }

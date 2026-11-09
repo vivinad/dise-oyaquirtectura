@@ -6,7 +6,7 @@ import { ModalService } from '../../services/modal.service';
 @Component({
   selector: 'app-ubicacion',
   templateUrl: './ubicacion.component.html',
-  styleUrls: ['./ubicacion.component.scss']
+  styleUrls: ['./ubicacion.component.css']
 })
 export class UbicacionComponent {
   mapaEmbedUrl: SafeResourceUrl;

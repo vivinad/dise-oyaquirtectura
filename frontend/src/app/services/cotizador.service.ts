@@ -11,7 +11,7 @@ import {
 } from '../models/cotizador.model';
 
 /**
- * CotizadorService — consume la API pública /api/cotizador del backend Spring Boot.
+ * CotizadorService — consume la API pública /api/cotizador del backend ASP.NET Core.
  */
 @Injectable({
   providedIn: 'root'

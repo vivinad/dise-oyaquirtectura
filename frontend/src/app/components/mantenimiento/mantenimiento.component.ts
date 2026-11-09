@@ -7,7 +7,7 @@ import { ItemMantenimiento } from '../../models/item-mantenimiento.model';
 @Component({
   selector: 'app-mantenimiento',
   templateUrl: './mantenimiento.component.html',
-  styleUrls: ['./mantenimiento.component.scss']
+  styleUrls: ['./mantenimiento.component.css']
 })
 export class MantenimientoComponent implements OnInit {
   items$!: Observable<ItemMantenimiento[]>;
